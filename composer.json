@@ -1,0 +1,37 @@
+{
+    "name": "arcostasi/console-log",
+    "description": "Console Log Facade for Laravel",
+    "keywords": ["console", "log"],
+    "license": "MIT",
+    "homepage": "https://github.com/arcostasi/console-log",
+    "support": {
+        "issues": "https://github.com/arcostasi/console-log/issues",
+        "source": "https://github.com/arcostasi/console-log"
+    },
+    "authors": [
+        {
+            "name": "Anderson Costa",
+            "email": "arcostasi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*|5.6.*|5.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arcostasi\\ConsoleLog\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+            "Arcostasi\\ConsoleLog\\ConsoleLogServiceProvider"
+            ],
+            "aliases": {
+                "Console": "Arcostasi\\ConsoleLog\\Facades\\Console"
+            }
+        }
+    },
+    "minimum-stability": "stable"
+}
