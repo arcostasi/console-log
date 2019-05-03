@@ -89,7 +89,7 @@ use App\Models\User;
 use Console;
   ...
 
-Console::Table(User::all());
+Console::Table(User::all(['name', 'email']));
 ```
 As you can see from the resulting console output, using the Table method:
 
