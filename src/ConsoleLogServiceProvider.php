@@ -15,7 +15,7 @@ class ConsoleLogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Nothing
+        $this->publishConfig();
     }
 
     /**
@@ -25,9 +25,28 @@ class ConsoleLogServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfig();
+
         App::bind('console', function()
         {
             return new Console;
         });
+    }
+
+    private function mergeConfig()
+    {
+        $path = $this->getConfigPath();
+        $this->mergeConfigFrom($path, 'console');
+    }
+
+    private function publishConfig()
+    {
+        $path = $this->getConfigPath();
+        $this->publishes([$path => config_path('console.php')], 'config');
+    }
+
+    private function getConfigPath()
+    {
+        return __DIR__ . '/config/console.php';
     }
 }

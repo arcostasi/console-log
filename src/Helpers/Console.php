@@ -25,6 +25,14 @@ class Console
     }
 
     /**
+     * Write output to console browser.
+     */
+    public function Debug($data = OUTPUT_EMPTY)
+    {
+        $this->Method($data, 'log');
+    }
+
+    /**
      * Write output to console browser in table format.
      */
     public function Table($data = OUTPUT_EMPTY)
@@ -134,7 +142,7 @@ class Console
     /**
      * Use this method to end an group of the console messages.
      */
-    public function GroupEnd($data = OUTPUT_EMPTY)
+    public function GroupEnd($data = null)
     {
         $this->Method($data, 'groupEnd');
     }
@@ -155,11 +163,21 @@ class Console
         // Start buffering
         ob_start();
 
-        if ((is_object($data)) || (is_array($data))) { // Check is an object or array
-            echo "var obj = " . json_encode($data) . ";\n" . "console.$method(obj);";
+        if (is_object($data)) { // Check is an object
+            $js = "var json = decodeURIComponent('" . rawurlencode($data) . "');\n"
+                . "var obj = JSON.parse(json);"
+                . "console.$method(obj);";
+        } else if (is_array($data)) { // Check is an array
+            $js = "var data = " . json_encode($data) . ";\n"
+                . "console.$method(data);";
         } else if (! empty($data)) { // Check is not empty
-            echo "console.$method('" . $data . "');";
+            $js = "var data = decodeURIComponent('" . rawurlencode($data) . "');\n"
+                . "console.$method(data);";
+        } else {  // Method is empty
+            $js = "console.$method();";
         }
+
+        echo $js;
 
         // Check is not empty
         if (! empty($data)) {
