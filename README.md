@@ -1,6 +1,6 @@
 # Console Log Facade for Laravel 5.x
 
-The JavaScript console is an invaluable tool to help develop and debug our apps. With the console object and its logging methods, long are the days of of calling alert() to debug and get a variable’s value. On top of that, thanks to a work in progress standard, modern browsers are
+The JavaScript console is an invaluable tool to help develop and debug our apps. With the console object and its logging methods, long are the days of calling alert() to debug and get a variable’s value. On top of that, thanks to a work in progress standard, modern browsers are
 finally supporting the same set of methods.
 
 ### Requirements
@@ -19,10 +19,6 @@ php artisan vendor:publish --provider="Arcostasi\ConsoleLog\ConsoleLogServicePro
 
 Add to `config/app.php`
 ```php
-'providers' => [
-  ...
-  Arcostasi\ConsoleLog\Providers\ConsoleLogServiceProvider::class,
-
 'aliases' => [
   ...
   'Console' => Arcostasi\ConsoleLog\Facades\Console::class,
@@ -81,6 +77,10 @@ use Console;
 
 Console::Trace(User::all());
 ```
+
+Result from console output:
+
+<img src="https://github.com/arcostasi/console-log/blob/master/img/trace.png?raw=true" width="600">
 
 ### Table
 If you feel so inclined, you can even display data in the console more neatly in a table format using Table method:
@@ -156,13 +156,8 @@ for ($i = 1; $i <= 5; $i++) {
 ```
 
 Result from console output:
-```plain
-// odd: 1
-// even: 1
-// odd: 2
-// even: 2
-// odd: 3
-```
+
+<img src="https://github.com/arcostasi/console-log/blob/master/img/count.png?raw=true" width="600">
 
 ### Timing
 As we’ve showed in this short post, you can start a timer with Time method and then end it with EndTime methos. Optionally the time can have a label:
@@ -193,7 +188,7 @@ Status: 200
   email: "arcostasi@gmail.com"
   created_at: "2013-07-18T18:04:44Z"
   ...
-dashboard:397 fetching data: 0.264892578125ms
+fetching data: 0.264892578125ms
 ```
 
 ### Grouping
