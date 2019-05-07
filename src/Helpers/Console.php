@@ -164,9 +164,10 @@ class Console
         ob_start();
 
         if (is_object($data)) { // Check is an object
-            $js = "var json = decodeURIComponent('" . rawurlencode($data) . "');\n"
-                . "var obj = JSON.parse(json);"
-                . "console.$method(obj);";
+            $js = "var JSONObject = " . json_encode($data) . ";\n"
+                . "var JSONString = JSON.stringify(JSONObject);"
+                . "var Object = JSON.parse(JSONString);"
+                . "console.$method(Object);";
         } else if (is_array($data)) { // Check is an array
             $js = "var data = " . json_encode($data) . ";\n"
                 . "console.$method(data);";
