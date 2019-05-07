@@ -166,8 +166,8 @@ class Console
         if (is_object($data)) { // Check is an object
             $js = "var JSONObject = " . json_encode($data) . ";\n"
                 . "var JSONString = JSON.stringify(JSONObject);"
-                . "var Object = JSON.parse(JSONString);"
-                . "console.$method(Object);";
+                . "var JSObject = JSON.parse(JSONString);"
+                . "console.$method(JSObject);";
         } else if (is_array($data)) { // Check is an array
             $js = "var data = " . json_encode($data) . ";\n"
                 . "console.$method(data);";
