@@ -91,9 +91,38 @@ class Console
     /**
      * Write output to console browser in an easy way to run simple assertion tests.
      */
-    public function Assert($data = OUTPUT_EMPTY)
+    public function Assert(...$args)
     {
-        $this->Method($data, 'assert');
+        // Start buffering
+        ob_start();
+
+        // Convert elements array
+        $data = [];
+        foreach ($args as $key => $arg) {
+            // Check first argument
+            if (($key == 0) && (is_bool($arg))) {
+                array_push($data, (int)$arg);
+            }
+            // Next args...
+            if ($key > 0) {
+                array_push($data, "'$arg'");
+            }
+        }
+
+        // Join array elements with a string delimiter
+        $args = implode($data, ',');
+
+        // Echo to output
+        echo "console.assert($args);";
+
+        // Return the contents of the output buffer
+        $output = ob_get_contents();
+
+        // Store output in new array with zero index
+        Session::push('console.log', $output);
+
+        // Stop buffering
+        ob_end_clean();
     }
 
     /**
