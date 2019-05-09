@@ -96,15 +96,16 @@ class Console
         // Start buffering
         ob_start();
 
-        // Convert elements array
+        // Aux array
         $data = [];
+
+        // Convert elements array
         foreach ($args as $key => $arg) {
             // Check first argument
             if (($key == 0) && (is_bool($arg))) {
                 array_push($data, (int)$arg);
-            }
-            // Next args...
-            if ($key > 0) {
+            } // String args...
+            else {
                 array_push($data, "'$arg'");
             }
         }
