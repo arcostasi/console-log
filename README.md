@@ -167,10 +167,10 @@ use Console;
 Console::Time('fetching data');
 
 $client = new \GuzzleHttp\Client();
-$result = $client->get('https://api.github.com/user', ['auth' =>  ['user', 'pwd']]);
-
-Console::Log("Status: {$result->getStatusCode()}"); // Status 200
-Console::Log($result->getBody()->toArray());        // Object result
+$response = $client->get('https://api.github.com/user', ['auth' =>  ['user', 'pwd']]);
+Console::Log("Status: {$response->getStatusCode()}"); // Status 200
+Console::Log("Content-type: {$response->getHeaderLine('content-type')}"); // Content-type
+Console::Log($response->getBody()->getContents());    // Object result
 
 Console::TimeEnd('fetching data');
 ```
